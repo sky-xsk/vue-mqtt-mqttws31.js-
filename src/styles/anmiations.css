@@ -1,0 +1,80 @@
+.statusXi {
+    color: #ffffff;
+    background: #ed3f14;
+    padding: 5px;
+    border-radius: 4px;
+    animation-name: breath;
+    /* 动画名称 */
+    animation-duration: 0.5s;
+    /* 动画时长3秒 */
+    animation-timing-function: ease-in-out;
+    /* 动画速度曲线：以低速开始和结束 */
+    animation-iteration-count: infinite;
+    /* 播放次数：无限 */
+    /* Safari and Chrome */
+    -webkit-animation-name: breath;
+    /* 动画名称 */
+    -webkit-animation-duration: 0.5s;
+    /* 动画时长3秒 */
+    -webkit-animation-timing-function: ease-in-out;
+    /* 动画速度曲线：以低速开始和结束 */
+    -webkit-animation-iteration-count: infinite;
+    /* 播放次数：无限 */
+}
+
+.statusXis {
+    color: #ffffff;
+    background: #19be6b;
+    padding: 5px;
+    border-radius: 4px;
+    animation-name: breath;
+    /* 动画名称 */
+    animation-duration: 2s;
+    /* 动画时长3秒 */
+    animation-timing-function: ease-in-out;
+    /* 动画速度曲线：以低速开始和结束 */
+    animation-iteration-count: infinite;
+    /* 播放次数：无限 */
+    /* Safari and Chrome */
+    -webkit-animation-name: breath;
+    /* 动画名称 */
+    -webkit-animation-duration: 2s;
+    /* 动画时长3秒 */
+    -webkit-animation-timing-function: ease-in-out;
+    /* 动画速度曲线：以低速开始和结束 */
+    -webkit-animation-iteration-count: infinite;
+    /* 播放次数：无限 */
+}
+
+
+/**首页系统异常动画**/
+
+@keyframes breath {
+    from {
+        opacity: 0.2;
+    }
+    /* 动画开始时的不透明度 */
+    50% {
+        opacity: 1;
+    }
+    /* 动画50% 时的不透明度 */
+    to {
+        opacity: 0.2;
+    }
+    /* 动画结束时的不透明度 */
+}
+
+@-webkit-keyframes breath {
+    from {
+        opacity: 0.2;
+    }
+    /* 动画开始时的不透明度 */
+    50% {
+        opacity: 1;
+    }
+    /* 动画50% 时的不透明度 */
+    to {
+        opacity: 0.2;
+    }
+    /* 动画结束时的不透明度 */
+}
