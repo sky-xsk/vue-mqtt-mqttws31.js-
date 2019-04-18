@@ -1,0 +1,236 @@
+/*
+#outerContainer {
+	height: 100%;
+	padding: 5px;
+}
+.container > hr {
+	margin: 30px 0;
+}
+.accordion-group {
+	background-color: white;
+	border-color: black;
+	box-shadow: 2px 2px 2px #888;
+}
+#header {
+	border: 1px solid black;
+	background-color: #333;
+	background-image: -webkit-linear-gradient(#3E3E3E, #131313);
+	height: 26px;
+	color: white;
+	font-size: 1.2em;
+	padding-top: 5px;
+	text-align: center;
+}
+#productName {
+	font-size: 0.7em;
+	margin: -1px 0 0 10px;
+}
+#title {
+	font-size: 1.1em;
+}
+.accordion-toggle {
+	font-size: 1.2em;
+	line-height: 30px;
+	font-weight: bold;
+}
+.alert {
+	display: none;
+	margin-bottom: 4px;
+	box-shadow: 2px 2px 2px #888;
+	border: solid 1px black
+}
+*/
+
+body {
+	font-family: "Helvetica Neue-Light","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+	font-weight: 200;
+	font-size: 15px;
+	line-height: 1.428571429;
+	color: #222;
+	background-color: #fafafa;
+}
+
+.container {
+	margin-bottom: 10px;
+}
+
+.bgRed {
+	background-color: #fff0f0;
+}
+
+.bgGreen {
+	background-color: #fafffa;
+}
+
+.navbar {
+	position: relative;
+	margin-bottom: 2px;
+	text-shadow: 1px 1px #333;
+}
+
+.navbar-inverse {
+	background-color: #008cba;
+	border-color: #006687;
+	border-radius: 0;
+	border: 0;
+	height: 40px;
+	color: white;
+}
+
+.bgGradientBlack {
+	background-color: rgba(10,10,10,1);
+	background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(28,28,28,0.93) 69%, rgba(63,63,63,0.9) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(69%,rgba(28,28,28,0.93)), color-stop(100%,rgba(63,63,63,0.9))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%,rgba(28,28,28,0.93) 69%,rgba(63,63,63,0.9) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(0,0,0,1) 0%,rgba(28,28,28,0.93) 69%,rgba(63,63,63,0.9) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(0,0,0,1) 0%,rgba(28,28,28,0.93) 69%,rgba(63,63,63,0.9) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(28,28,28,0.93) 69%,rgba(63,63,63,0.9) 100%); /* W3C */
+}
+
+.navbar-brand {
+	line-height: 16px !important;
+	color: white !important;
+}
+
+.panel-heading a:after {
+	font-family: 'Glyphicons Halflings';
+	content: "\e114";    
+	float: right; 
+	color: grey; 
+}
+.panel-heading a.collapsed:after {
+	content: "\e080";
+}
+
+/*
+.panel-heading {
+	cursor: pointer;
+}
+.panel-heading:hover {
+	opacity: 0.7 !important;
+}
+*/
+
+.panel {
+	margin: 10px -5px 0 -5px;
+	border-radius: 0;
+	box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+}
+
+.input-group {
+	margin-bottom: 5px;
+}
+
+#connectionStatus {
+	padding: 12px 0px 12px 15px;
+	font-size: 13px;
+	line-height: 21px;
+	color: white;
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 50%;
+}
+
+#logContents {
+	padding: 0;
+	margin-bottom: 0;
+	line-height: 14px;
+	font-size: 11px;
+}
+
+@media all and (max-width: 768px) {
+	.panel-body > .container {
+		padding: 0;
+	}
+	.panel {
+		margin: 5px -10px;
+	}
+	#logContents {
+		line-height: 11px;
+		font-size: 10px;
+		margin: -8px;
+	}
+}
+
+#subscribeList {
+	padding: 5px;
+}
+
+#subscribeListLabel {
+	margin: 0;
+	padding: 5px;
+	text-align: center;
+	background-color: rgb(255,245,245);
+	color: rgb(185,74,72);
+	border-bottom: 1px solid #ddd;
+}
+
+.subscribeListItem {
+	padding: 3px 6px 4px 6px;
+	background-color: rgb(184,75,72);
+	border-radius: 5px;
+	display: inline-block;
+	margin: 2px;
+	text-shadow: 1px 1px #444;
+	color: white;
+}
+
+#subscribeButton {
+	background-color: white;
+	border: 1px solid rgb(185,74,72);
+	color: rgb(185,74,72);
+}
+
+#subscribeButton:hover {
+	background-color: rgb(185,74,72);
+	color: white;
+}
+
+#subscriptionListContainer {
+	background-color: #f5f5f5;
+	border: 1px solid #aaa;
+	box-shadow: 1px 1px 4px #aaa;
+	margin-top: 20px;
+	padding: 0;
+}
+
+.logLine {
+	padding-left: 15px;
+	text-indent: -15px;
+	margin-bottom: 2px;
+}
+
+.logTime {
+	font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+	color: #888;
+	padding-right: 5px;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+
+.logMessage {
+	font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+
+.logPUB {
+	background-color: rgba(217,237,247,0.6);
+}
+.logRCV {
+	background-color: rgba(242,222,222,0.6);
+}
+
+.close {
+	font-size: 15px !important;
+	float: none !important;
+	text-shadow: 1px 1px #444;
+}
+
+.logTopic {
+}
+
+.logPayload {
+}
