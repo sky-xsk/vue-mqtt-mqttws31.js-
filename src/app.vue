@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h1>{{msg}}</h1>
+        <h1 style='text-align:center'>mqtt实例测试</h1>
+        <h3>此处显示接收的数据: <p style='color:red'>{{msg}}</p></h3>
     </div>
 </template>
 <script>
@@ -16,9 +17,9 @@
             this.MQTTconnect();
         },
         methods: {
-            //实时货柜变化
+            //实时数据变化
             addtopic(msg) {
-                this.msg = msg;
+              this.msg = msg;
             },
 
             //实时通信
@@ -70,7 +71,7 @@
             },
             //连接丢失
             onConnectionLost(response) {
-                //console.log("异常掉线，掉线信息为:" + response.errorMessage);
+                console.log("异常掉线，掉线信息为:" + response.errorMessage);
             },
     
             //接收到消息，处理
@@ -79,7 +80,7 @@
                 var msg = $.parseJSON(message.payloadString);
                 //判断主题
                 if (topics == "add") {
-                    //添加
+                    //添加,此处同时可对数据进行增删改查，等相关数据操作
                     this.addtopic(msg);
                 }else {
                     return;
@@ -89,9 +90,3 @@
     }
 </script>
 
-<style>
-    .apps {
-        width: 100%;
-        overflow: hidden;
-    }
-</style>
