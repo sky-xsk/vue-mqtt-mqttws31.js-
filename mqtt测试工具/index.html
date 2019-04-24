@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<!--
+#
+#****************************************************************
+# Licensed Materials - Property of IBM
+# 5725-F96 IBM MessageSight
+# (C) Copyright IBM Corp. 2012, 2013 All Rights Reserved.
+#
+# US Government Users Restricted Rights - Use, duplication or
+# disclosure restricted by GSA ADP Schedule Contract with
+# IBM Corp.
+#****************************************************************
+#
+-->
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>MQTT Client</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/jsoneditor.css" rel="stylesheet" type="text/css">
+        <script src="js/jsoneditor.js"></script>
+		  <style type="text/css">
+    code {
+      background-color: #f5f5f5;
+    }
+    #jsoneditor {
+	  
+      height: 300px;
+    }
+	
+	#jsoneditor div.jsoneditor{
+	  border:0px;
+	}
+  </style>
+	</head>
+
+	<body onload="init()">
+		<div class="navbar navbar-inverse" role="navigation">
+			<div class="container">
+				<div class="navbar-header pull-left">
+					<a class="navbar-brand" href="#">MQTT Helper</a>
+				</div>
+				<div class="navbar-header pull-right" id="connectionStatus"></div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-success">
+						<div class="panel-heading" id="connectPanelHeading">
+							<h3 class="panel-title">
+								<a id="connectPanelLink" data-toggle="collapse" data-target="#collapseConnect" href="#collapseConnect">
+									连接
+								</a>
+							</h3>
+						</div>
+						<div id="collapseConnect" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<div class="container">
+									<div class="row">
+										<div class="col-md-6">
+											<form class="form" id="connectForm" role="form">
+												<div class="form-group">
+													<label for="connectServer">Server</label>
+													<input type="text" class="requiresDisconnect form-control" id="connectServer" placeholder="Server" value="messagesight.demos.ibm.com">
+												</div>
+												<div class="form-group">
+													<label for="connectPort">Port</label>
+													<input type="text" class="requiresDisconnect form-control" id="connectPort" placeholder="Port" value="1883">
+												</div>
+												<button type="submit" id="connectButton" class="requiresDisconnect btn btn-success btn-small">连接</button>
+												<button id="disconnectButton" class="requiresConnect btn btn-danger btn-small">断开连接</button>
+											</form>
+										</div>
+										<hr class="visible-xs visible-sm">
+										<div class="col-md-6">
+											<div style="opacity: 0.8">
+												<div class="input-group">
+													<span class="input-group-addon">Client ID</span>
+													<input type="text" class="requiresDisconnect form-control" id="connectClientID" value=""> 
+												</div>
+												<div class="input-group">
+													<span class="input-group-addon">Username</span>
+													<input type="text" class="requiresDisconnect form-control" id="connectUsername" value="" placeholder="(optional)"> 
+												</div>
+												<div class="input-group">
+													<span class="input-group-addon">Password</span>
+													<input type="password" class="requiresDisconnect form-control" id="connectPassword" value="" placeholder="(optional)"> 
+												</div>
+												<div class="input-group">
+													<span style="width: 120px" class="input-group-addon">Clean Session</span>
+													<div class="btn-group btn-toggle">
+														<button type="button" id="connectCleanSessionOff" class="requiresDisconnect btn btn-default">OFF</button>
+														<button type="button" id="connectCleanSessionOn" class="requiresDisconnect btn btn-primary active">ON</button>
+													</div>
+												</div>
+												<div class="input-group">
+													<span style="width: 120px" class="input-group-addon">SSL</span>
+													<div class="btn-group btn-toggle">
+														<button type="button" id="connectSSLOff" class="requiresDisconnect btn btn-primary active">OFF</button>
+														<button type="button" id="connectSSLOn" class="requiresDisconnect btn btn-default">ON</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--
+									<div class="row" id="willContainer">
+										<hr>
+										<div class="col-md-6">
+											<div style="opacity: 0.8">
+												<div class="form-group">
+													<label for="subscribeTopic">Will Topic</label>
+													<input type="text" class="requiresDisconnect form-control" id="publishTopic" value="planets/earth">
+												</div>
+												<div class="input-group">
+													<span class="input-group-addon">Will QOS</span>
+													<select style="width: 60px;" class="requiresDisconnect form-control" id="publishQOS">
+														<option>0</option>
+														<option>1</option>
+														<option>2</option>
+													</select>
+												</div>
+												<div class="input-group">
+													<span class="input-group-addon">Will Retained</span>
+													<div class="btn-group btn-toggle" data-toggle="buttons-radio">
+														<button type="button" id="publishRetainedOff" class="requiresDisconnect btn btn-primary active">OFF</button>
+														<button type="button" id="publishRetainedOn" class="requiresDisconnect btn btn-default">ON</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div style="opacity: 0.8">
+												<div class="input-group">
+													<label for="subscribeTopic">Will Payload</label>
+													<textarea rows="1" style="height: 80px;" class="requiresDisconnect form-control" id="publishMessage" value="Hello world!"></textarea>
+												</div>
+												<div class="input-group">
+													<span class="input-group-addon">Keep Alive</span>
+													<input type="text" class="requiresDisconnect" id="connectClientID" value="60"> 
+												</div>
+												<div class="input-group">
+													<span class="input-group-addon">Timeout</span>
+													<input type="text" class="requiresDisconnect" id="connectClientID" value="5"> 
+												</div>
+											</div>
+										</div>
+									</div>
+									-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="panel panel-danger">
+						<div class="panel-heading" id="subscribePanelHeading">
+							<h3 class="panel-title">
+								<a id="subscribePanelLink" data-toggle="collapse" data-target="#collapseSubscribe" href="#collapseSubscribe" class="collapsed">
+									订阅
+								</a>
+							</h3>
+						</div>
+						<div id="collapseSubscribe" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<form class="form" id="subscribeForm" role="form">
+									<div class="form-group">
+										<label for="subscribeTopic">Topic</label>
+										<input type="text" class="requiresConnect form-control" id="subscribeTopic" value="planets/earth">
+									</div>
+									<div class="input-group">
+										<span class="input-group-addon">QOS</span>
+										<select style="width: 60px;" class="requiresConnect form-control" id="subscribeQOS">
+											<option>0</option>
+											<option>1</option>
+											<option>2</option>
+										</select>
+										<button type="submit" id="subscribeButton" class="requiresConnect btn btn-success btn-small pull-right">订阅</button>
+									</div>
+								</form>
+								<div id="subscriptionListContainer">
+									<h5 id="subscribeListLabel">订阅列表</h5>
+									<div id="subscribeList"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="panel panel-info">
+						<div class="panel-heading" id="publishPanelHeading">
+							<h3 class="panel-title">
+								<a id="publishPanelLink" data-toggle="collapse" data-target="#collapsePublish" href="#collapsePublish" class="collapsed">
+									发布
+								</a>
+							</h3>
+						</div>
+						<div id="collapsePublish" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<form class="form" id="publishForm" role="form">
+									<div class="form-group">
+										<label for="subscribeTopic">Topic</label>
+										<input type="text" class="requiresConnect form-control" id="publishTopic" value="planets/earth">
+									</div>
+									<div class="input-group" style="width:100%">
+										<label for="subscribeTopic">Payload</label>
+										<div id="jsoneditor"></div>
+										
+									</div>
+									<div class="input-group">
+										<span class="input-group-addon">QOS</span>
+										<select style="width: 60px;" class="requiresConnect form-control" id="publishQOS">
+											<option>0</option>
+											<option>1</option>
+											<option>2</option>
+										</select>
+									</div>
+									<div class="input-group">
+										<span class="input-group-addon">Retained</span>
+										<div class="btn-group btn-toggle" data-toggle="buttons-radio">
+											<button type="button" id="publishRetainedOff" class="requiresConnect btn btn-primary active">OFF</button>
+											<button type="button" id="publishRetainedOn" class="requiresConnect btn btn-default">ON</button>
+										</div>
+										<button type="submit" id="publishButton" class="requiresConnect btn btn-success btn-small pull-right">发布</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+<!--
+						<div class="input-prepend">
+							<span class="add-on" style="width: 70px;">Topic</span>
+							<input class="requiresConnect" id="publishTopic" style="width: 190px;" type="text" value="planets/earth">
+						</div>
+						<div class="input-prepend">
+							<span class="add-on" style="width: 70px;">Message</span>
+							<textarea rows="1" class="requiresConnect" id="publishMessage" style="width: 190px;" value="Hello world!"></textarea>
+						</div>
+						<div class="input-prepend">
+							<span class="add-on" style="width: 70px;">QOS</span>
+							<select class="requiresConnect" style="width: 60px" id="publishQOS">
+								<option>0</option>
+								<option>1</option>
+								<option>2</option>
+							</select>
+						</div>
+						<div class="input-prepend">
+							<span class="add-on" style="width: 70px;">Retained</span>
+							<div class="btn-group" data-toggle="buttons-radio">
+								<button type="button" id="publishRetainedOff" class="requiresConnect btn active">OFF</button>
+								<button type="button" id="publishRetainedOn" class="requiresConnect btn">ON</button>
+							</div>
+						</div>
+						<button style="margin-top: 5px;" id="publishButton" class="requiresConnect btn btn-success btn-small">Publish</button>
+-->
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-warning">
+						<div class="panel-heading" id="logPanelHeading">
+							<h3 class="panel-title">
+								<a id="logPanelLink" data-toggle="collapse" data-target="#collapseLog" href="#collapseLog">Log</a>
+									<span style="margin-left: 10px; padding: 2px 5px" class="badge badge-info" id="logSize"></span>
+									<button class="btn btn-text btn-mini" style="display: inline-block; margin: 5px 5px 8x 10px;" onclick="clearLog()">Clear</button>
+									<input type="checkbox" id="stickyLog" style="display: inline-block; margin: 5px 5px 8px 20px;" />Follow
+								</a>
+							</h3>
+						</div>
+						<div id="collapseLog" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<div style="" class="pre-scrollable" id="logContents"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--
+		<div id="connectedAlert" class="alert alert-success" style="display: none; margin-bottom: 4px;">
+			Connected to <span id="connectedAlertServer"></span><span id="connectedAlertPort"></span>
+		</div>
+		<div id="errorAlert" class="alert alert-error" style="display: none; margin-bottom: 4px;">
+			<span id="errorAlertText"></span>
+		</div>
+		<div class="accordion" id="accordion">
+			<div class="accordion-group">
+				<div class="accordion-heading">
+					<a id="connectToggle" class="accordion-toggle" data-toggle="collapse" data-target="#connect" href="#connect">
+						Connect
+					</a>
+				</div>
+				<div id="connect" class="accordion-body collapse in">
+					<div class="accordion-inner">
+					</div>
+				</div>
+			</div>
+			<div class="accordion-group">
+				<div class="accordion-heading">
+					<a id="subscribeToggle" class="accordion-toggle" data-toggle="collapse" data-target="#subscribe" href="#subscribe">
+						Subscribe
+					</a>
+				</div>
+				<div id="subscribe" class="accordion-body collapse">
+					<div class="accordion-inner">
+						<div class="input-prepend">
+							<span class="add-on" style="width: 60px;">Topic</span>
+							<input class="requiresConnect" id="subscribeTopic" style="width: 190px;" type="text" value="planets/earth">
+						</div>
+						<div class="input-prepend">
+							<span class="add-on" style="width: 60px;">QOS</span>
+							<select class="requiresConnect" style="width: 60px" id="subscribeQOS">
+								<option>0</option>
+								<option>1</option>
+								<option>2</option>
+							</select>
+						</div>
+						<button style="margin-top: 5px; margin-bottom: 5px;" id="subscribeButton" class="requiresConnect btn btn-success btn-small">Subscribe</button>
+						<div id="subscribeList"></div>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-group">
+				<div class="accordion-heading">
+					<a id="publishToggle" class="accordion-toggle" data-toggle="collapse" data-target="#publish" href="#publish">
+						Publish
+					</a>
+				</div>
+				<div id="publish" class="accordion-body collapse">
+					<div class="accordion-inner">
+						<div class="input-prepend">
+							<span class="add-on" style="width: 70px;">Topic</span>
+							<input class="requiresConnect" id="publishTopic" style="width: 190px;" type="text" value="planets/earth">
+						</div>
+						<div class="input-prepend">
+							<span class="add-on" style="width: 70px;">Message</span>
+							<textarea rows="1" class="requiresConnect" id="publishMessage" style="width: 190px;" value="Hello world!"></textarea>
+						</div>
+						<div class="input-prepend">
+							<span class="add-on" style="width: 70px;">QOS</span>
+							<select class="requiresConnect" style="width: 60px" id="publishQOS">
+								<option>0</option>
+								<option>1</option>
+								<option>2</option>
+							</select>
+						</div>
+						<div class="input-prepend">
+							<span class="add-on" style="width: 70px;">Retained</span>
+							<div class="btn-group" data-toggle="buttons-radio">
+								<button type="button" id="publishRetainedOff" class="requiresConnect btn active">OFF</button>
+								<button type="button" id="publishRetainedOn" class="requiresConnect btn">ON</button>
+							</div>
+						</div>
+						<button style="margin-top: 5px;" id="publishButton" class="requiresConnect btn btn-success btn-small">Publish</button>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-group">
+				<div class="accordion-heading">
+					<a id="logToggle" class="accordion-toggle" style="display: inline-block" data-toggle="collapse" data-target="#log" href="#log">
+						Log<span style="margin-left: 10px; padding: 2px 5px" class="badge badge-info" id="logSize"></span>
+					</a>
+					<button class="btn btn-text btn-mini" style="display: inline-block; margin: 5px 5px 8x 10px;" onclick="clearLog()">Clear</button>
+					<input type="checkbox" id="stickyLog" style="display: inline-block; margin: 5px 5px 8px 20px;" />Follow
+				</div>
+				<div id="log" class="accordion-body collapse in">
+					<div style="padding: 5px" class="accordion-inner">
+						<pre style="line-height: 14px; font-size: 11px; margin-bottom: 0;" class="pre-scrollable" id="logContents"></pre>
+					</div>
+				</div>
+			</div>
+			-->
+		</div>
+		<script>
+		  var container = document.getElementById('jsoneditor');
+
+		  var options = {
+			mode: 'code',
+			modes: ['code','tree','text'],
+			onError: function (err) {
+			  alert(err.toString());
+			}
+		  };
+		  var editor = new JSONEditor(container, options, null);
+		</script>
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="js/utils/jquery.min.js"></script>
+		<script src="js/utils/bootstrap.min.js"></script>
+		<script src="js/utils/mqttws31.js"></script>
+		<script src="js/MQTTClient.js"></script>
+		
+	</body>
+</html>
+
