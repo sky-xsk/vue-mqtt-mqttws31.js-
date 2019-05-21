@@ -1,6 +1,4 @@
-# xsks
-
-> mqtt 简单实例
+# mqtt 简单实例
 
 ## Build Setup
 
