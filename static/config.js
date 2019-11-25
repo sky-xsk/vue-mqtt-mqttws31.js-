@@ -1,6 +1,8 @@
  host = '222.73.204.54'; // hostname or IP address
  port = 9001;
  addtopic = 'add';
+ updatetopic = 'update'
+ removetopic = 'remove'
  useTLS = false;
  username = null;
  password = null;
