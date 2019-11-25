@@ -1,5 +1,7 @@
 # mqtt 简单实例
 
+#新增 根据主题判断的增删改的逻辑
+
 ## Build Setup
 
 ``` bash
@@ -15,5 +17,3 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
